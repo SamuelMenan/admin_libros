@@ -1,37 +1,57 @@
 {% extends 'gestion/base.html' %}
 {% block title %}Libros{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h2>Libros</h2>
-  <a href="{% url 'crear_libro' %}" class="btn btn-success">+ Agregar Libro</a>
-</div>
+<section class="space-y-5">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Libros</h1>
+      <p class="text-sm text-slate-600">Catálogo de títulos disponibles en la biblioteca.</p>
+    </div>
+    <a href="{% url 'crear_libro' %}" class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500">
+      + Agregar Libro
+    </a>
+  </div>
 
-{% if libros %}
-<div class="table-responsive">
-<table class="table table-striped table-hover bg-white rounded shadow-sm">
-  <thead class="table-dark">
-    <tr>
-      <th>Título</th><th>Autor</th><th>Género</th><th>Publicación</th><th>ISBN</th><th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for libro in libros %}
-    <tr>
-      <td><a href="{% url 'detalle_libro' libro.pk %}">{{ libro.titulo }}</a></td>
-      <td>{{ libro.autor.nombre }}</td>
-      <td>{{ libro.genero }}</td>
-      <td>{{ libro.fecha_publicacion }}</td>
-      <td>{{ libro.isbn }}</td>
-      <td>
-        <a href="{% url 'editar_libro' libro.pk %}" class="btn btn-sm btn-warning">Editar</a>
-        <a href="{% url 'eliminar_libro' libro.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
-{% else %}
-  <p class="text-muted">No hay libros registrados aún.</p>
-{% endif %}
+  {% if libros %}
+  <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white/90 shadow-xl shadow-slate-200/60">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-900 text-left text-xs font-bold uppercase tracking-wider text-slate-100">
+          <tr>
+            <th class="px-5 py-4">Título</th>
+            <th class="px-5 py-4">Autor</th>
+            <th class="px-5 py-4">Género</th>
+            <th class="px-5 py-4">Publicación</th>
+            <th class="px-5 py-4">ISBN</th>
+            <th class="px-5 py-4 text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          {% for libro in libros %}
+          <tr class="transition hover:bg-emerald-50/70">
+            <td class="px-5 py-4 font-semibold text-slate-800">
+              <a href="{% url 'detalle_libro' libro.pk %}" class="hover:text-emerald-700">{{ libro.titulo }}</a>
+            </td>
+            <td class="px-5 py-4 text-slate-600">{{ libro.autor.nombre }}</td>
+            <td class="px-5 py-4 text-slate-600">{{ libro.genero }}</td>
+            <td class="px-5 py-4 text-slate-600">{{ libro.fecha_publicacion }}</td>
+            <td class="px-5 py-4 text-slate-600">{{ libro.isbn }}</td>
+            <td class="px-5 py-4">
+              <div class="flex justify-end gap-2">
+                <a href="{% url 'editar_libro' libro.pk %}" class="rounded-lg bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-800 transition hover:bg-amber-200">Editar</a>
+                <a href="{% url 'eliminar_libro' libro.pk %}" class="rounded-lg bg-rose-100 px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-200">Eliminar</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-8 text-center">
+    <p class="text-slate-600">No hay libros registrados aún.</p>
+  </div>
+  {% endif %}
+</section>
 {% endblock %}

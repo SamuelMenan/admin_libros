@@ -1,0 +1,55 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Autores{% endblock %}
+{% block content %}
+<section class="space-y-5">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-extrabold tracking-tight sm:text-3xl">Autores</h1>
+      <p class="text-sm text-slate-600">Administra la información de cada autor en segundos.</p>
+    </div>
+    <a href="{% url 'crear_autor' %}" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-slate-800">
+      + Agregar Autor
+    </a>
+  </div>
+
+  {% if autores %}
+  <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white/90 shadow-xl shadow-slate-200/60">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-900 text-left text-xs font-bold uppercase tracking-wider text-slate-100">
+          <tr>
+            <th class="px-5 py-4">Nombre</th>
+            <th class="px-5 py-4">Correo</th>
+            <th class="px-5 py-4">Nacionalidad</th>
+            <th class="px-5 py-4">Nacimiento</th>
+            <th class="px-5 py-4 text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          {% for autor in autores %}
+          <tr class="transition hover:bg-cyan-50/70">
+            <td class="px-5 py-4 font-semibold text-slate-800">
+              <a href="{% url 'detalle_autor' autor.pk %}" class="hover:text-cyan-700">{{ autor.nombre }}</a>
+            </td>
+            <td class="px-5 py-4 text-slate-600">{{ autor.correo }}</td>
+            <td class="px-5 py-4 text-slate-600">{{ autor.nacionalidad }}</td>
+            <td class="px-5 py-4 text-slate-600">{{ autor.fecha_nacimiento }}</td>
+            <td class="px-5 py-4">
+              <div class="flex justify-end gap-2">
+                <a href="{% url 'editar_autor' autor.pk %}" class="rounded-lg bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-800 transition hover:bg-amber-200">Editar</a>
+                <a href="{% url 'eliminar_autor' autor.pk %}" class="rounded-lg bg-rose-100 px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-200">Eliminar</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-8 text-center">
+    <p class="text-slate-600">No hay autores registrados aún.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

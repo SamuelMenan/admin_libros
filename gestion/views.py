@@ -2,6 +2,22 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Autor, Libro
 from .forms import AutorForm, LibroForm
 
+
+def inicio(request):
+    total_autores = Autor.objects.count()
+    total_libros = Libro.objects.count()
+    libros_recientes = Libro.objects.select_related('autor').order_by('-id')[:5]
+    return render(
+        request,
+        'gestion/inicio.html',
+        {
+            'total_autores': total_autores,
+            'total_libros': total_libros,
+            'libros_recientes': libros_recientes,
+        },
+    )
+
+
 # ──────────────────────────────────────────────────
 # CRUD AUTORES — Samuel Mena
 # ──────────────────────────────────────────────────
