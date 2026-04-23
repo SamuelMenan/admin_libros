@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Gestión de Libros{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .bg-grid {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(71, 85, 105, 0.14) 1px, transparent 0);
+      background-size: 22px 22px;
+    }
+    .floaty {
+      animation: floaty 8s ease-in-out infinite;
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .fade-up {
+      animation: fadeUp 450ms ease-out both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-800">
+<div class="fixed inset-0 -z-10 bg-gradient-to-br from-cyan-100 via-white to-emerald-100"></div>
+<div class="fixed inset-0 -z-10 bg-grid"></div>
+
+<nav class="sticky top-0 z-30 border-b border-white/60 bg-white/75 backdrop-blur-lg">
+  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a class="flex items-center gap-3" href="{% url 'inicio' %}">
+      <span class="floaty inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-emerald-500 text-lg text-white shadow-lg">📚</span>
+      <span class="text-lg font-extrabold tracking-tight">Biblioteca Activa</span>
+    </a>
+
+    <div class="flex items-center gap-2 text-sm font-semibold">
+      <a href="{% url 'inicio' %}" class="rounded-lg px-3 py-2 transition hover:bg-slate-100 {% if request.path == '/' %}bg-slate-900 text-white hover:bg-slate-900{% endif %}">Inicio</a>
+      <a href="{% url 'lista_autores' %}" class="rounded-lg px-3 py-2 transition hover:bg-slate-100 {% if '/autores' in request.path %}bg-slate-900 text-white hover:bg-slate-900{% endif %}">Autores</a>
+      <a href="{% url 'lista_libros' %}" class="rounded-lg px-3 py-2 transition hover:bg-slate-100 {% if '/libros' in request.path %}bg-slate-900 text-white hover:bg-slate-900{% endif %}">Libros</a>
+    </div>
+  </div>
+</nav>
+
+<main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
+  <div class="fade-up">
+    {% block content %}{% endblock %}
+  </div>
+</main>
+
+</body>
+</html>

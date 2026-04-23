@@ -1,0 +1,22 @@
+{% extends 'gestion/base.html' %}
+{% block title %}{{ libro.titulo }}{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-3xl">
+  <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white/90 shadow-xl shadow-slate-200/60">
+    <div class="border-b border-slate-200 px-6 py-5">
+      <h1 class="text-2xl font-extrabold tracking-tight">{{ libro.titulo }}</h1>
+    </div>
+    <div class="space-y-3 px-6 py-5 text-sm sm:text-base">
+      <p><span class="font-bold">Autor:</span>
+        <a href="{% url 'detalle_autor' libro.autor.pk %}" class="font-semibold text-cyan-700 hover:text-cyan-800">{{ libro.autor.nombre }}</a></p>
+      <p><span class="font-bold">Genero:</span> {{ libro.genero }}</p>
+      <p><span class="font-bold">Publicacion:</span> {{ libro.fecha_publicacion }}</p>
+      <p><span class="font-bold">ISBN:</span> {{ libro.isbn }}</p>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a href="{% url 'editar_libro' libro.pk %}" class="rounded-lg bg-amber-100 px-3 py-2 text-sm font-bold text-amber-800 transition hover:bg-amber-200">Editar</a>
+        <a href="{% url 'lista_libros' %}" class="rounded-lg bg-slate-200 px-3 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-300">Volver</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

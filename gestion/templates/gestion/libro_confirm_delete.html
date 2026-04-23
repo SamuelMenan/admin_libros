@@ -1,0 +1,19 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Eliminar Libro{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-2xl">
+  <div class="overflow-hidden rounded-2xl border border-rose-200 bg-white/90 shadow-xl shadow-rose-100/70">
+    <div class="bg-rose-600 px-6 py-4 text-white">
+      <h1 class="text-lg font-extrabold">Confirmar Eliminacion</h1>
+    </div>
+    <div class="space-y-4 px-6 py-6">
+      <p>Estas seguro que deseas eliminar el libro <span class="font-bold">{{ libro.titulo }}</span>?</p>
+      <form method="post" class="flex flex-wrap gap-3 pt-2">
+        {% csrf_token %}
+        <button type="submit" class="rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-rose-500">Si, eliminar</button>
+        <a href="{% url 'lista_libros' %}" class="rounded-xl bg-slate-200 px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-300">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
