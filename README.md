@@ -1,0 +1,1 @@
+Los integrantes son Samuel Esteban Mena Pupiales Y Juan Jose Enriquez Cordoba, nikRSl&nbsp; es la cuenta que estaba en el computador de la sala de informatica 1<img width="1133" height="492" alt="Captura de pantalla 2026-04-23 132810" src="https://github.com/user-attachments/assets/64ab55b9-532f-400b-822f-85492b4c91b1" />
